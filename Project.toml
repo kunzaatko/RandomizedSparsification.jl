@@ -1,0 +1,7 @@
+name = "RandomizedSparsification"
+uuid = "cc291c0e-d779-41fa-8e3a-b07ea85ddd8b"
+authors = ["Martin Kunz <martinkunz@email.cz> and contributors"]
+version = "0.1.0"
+
+[compat]
+julia = "1.6.7"
