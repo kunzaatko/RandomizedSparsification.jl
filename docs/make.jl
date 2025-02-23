@@ -1,7 +1,17 @@
 using RandomizedSparsification
-using Documenter
+using Documenter, DocumenterCitations
 
-DocMeta.setdocmeta!(RandomizedSparsification, :DocTestSetup, :(using RandomizedSparsification); recursive=true)
+DocMeta.setdocmeta!(
+    RandomizedSparsification,
+    :DocTestSetup,
+    :(using RandomizedSparsification);
+    recursive=true,
+)
+
+bib = CitationBibliography(
+    joinpath(@__DIR__, "src", "refs.bib");
+    # style=:authoryear
+)
 
 makedocs(;
     modules=[RandomizedSparsification],
@@ -12,12 +22,8 @@ makedocs(;
         edit_link="trunk",
         assets=String[],
     ),
-    pages=[
-        "Home" => "index.md",
-    ],
+    pages=["Home" => "index.md"],
+    plugins=[bib],
 )
 
-deploydocs(;
-    repo="github.com/kunzaatko/RandomizedSparsification.jl",
-    devbranch="trunk",
-)
+deploydocs(; repo="github.com/kunzaatko/RandomizedSparsification.jl", devbranch="trunk")
