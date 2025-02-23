@@ -3,5 +3,17 @@ uuid = "cc291c0e-d779-41fa-8e3a-b07ea85ddd8b"
 authors = ["Martin Kunz <martinkunz@email.cz> and contributors"]
 version = "0.1.0"
 
+[deps]
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+Logging = "56ddb016-857b-54e1-b83d-db4d58db5568"
+ProgressLogging = "33c8b6b6-d38a-422a-b730-caa89a2f386c"
+SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
+StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
+
 [compat]
+LinearAlgebra = "1.11.0"
+Logging = "1.11.0"
+ProgressLogging = "0.1.4"
+SparseArrays = "1.11.0"
+StatsBase = "0.34.4"
 julia = "1.6.7"
