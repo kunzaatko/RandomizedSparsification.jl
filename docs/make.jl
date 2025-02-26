@@ -13,7 +13,10 @@ bib = CitationBibliography(
     # style=:authoryear
 )
 
-links = InterLinks("SparseArrays" => "https://sparsearrays.juliasparse.org/dev/")
+links = InterLinks(
+    "SparseArrays" => "https://sparsearrays.juliasparse.org/dev/",
+    "DataFrames" => "https://dataframes.juliadata.org/latest/",
+)
 
 makedocs(;
     modules=[RandomizedSparsification],
