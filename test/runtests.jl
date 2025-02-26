@@ -35,4 +35,22 @@ using Aqua
         @test FI._indices_sequencial(P_ij_cs, rand01_vec, 3, 3) == out
         @test FI._indices_groupsort(P_ij_cs, rand01_vec, 3, 3) == out
     end
+    @testset "context" begin
+        using RandomizedSparsification: _sparsify_context_data
+        A = rand(3, 3)
+        @test _sparsify_context_data(A) isa Tuple
+    end
+    @testset "sparsify" begin
+        using RandomizedSparsification, SparseArrays
+        using RandomizedSparsification: _sparsify_single_threaded, _sparsify_context_data
+
+        A = rand(3, 3)
+        A_1_norm, A_F_norm, P_ij, P_ij_cs = _sparsify_context_data(A)
+
+        @test _sparsify_single_threaded(
+            A, A_1_norm, A_F_norm, P_ij, P_ij_cs; r=1000, progress=false
+        ) isa SparseMatrixCSC
+
+        @test sparsify(A; r=1000) isa SparseMatrixCSC
+    end
 end

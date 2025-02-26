@@ -10,27 +10,10 @@ include("indices.jl")
     A, A_1_norm, A_F_norm, P_ij, P_ij_cs; r, progress
 ) # *
     d₁, d₂ = size(A)
-    counts = Dict{CartesianIndex,Int32}()
     probs = rand(Float32, r)
-    # FIX: suppresses all the logging. Instead I would like to suppress only the progress logging. Is there a way of
-    # doing that using `ProgressLogging.jl`? <25-02-25> 
-    Logging.with_logger(progress ? Logging.current_logger() : Logging.NullLogger()) do
-        @progress for c in probs
-            ind = CartesianIndices(A)[searchsortedfirst(P_ij_cs, c)] # **
-            if !haskey(counts, ind)
-                counts[ind] = 1
-            else
-                counts[ind] += 1
-            end
-        end
-    end
-    # counts = StatsBase.countmap(ij)
-    vals = map([keys(counts)...]) do ij 
-        @inbounds (counts[ij] / r) * A[ij] / P_ij[ij] # ***
-    end
-    # FIX: Default of the `combine` argument in `sparse` is the `+` function so counting before the creation is not
-    # necessary <25-02-25> 
-    A_hat = sparse([keys(counts)...], vals, d₁, d₂) # ****
+    ij = FindIndices._indices_groupsort(P_ij_cs, probs, d₁, d₂)
+    vals = @inbounds (1 / r) * A[ij] ./ P_ij[ij]
+    A_hat = sparse(ij, vals, d₁, d₂)
     return A_hat
 end
 
@@ -80,4 +63,6 @@ function sparsify(A; r, multithreaded=false, progress=false)
         _sparsify_single_threaded(A, ctxt_data...; r, progress)
     end
 end
+
+export sparsify
 end
