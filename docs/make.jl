@@ -1,5 +1,5 @@
 using RandomizedSparsification
-using Documenter, DocumenterCitations
+using Documenter, DocumenterCitations, DocumenterInterLinks
 
 DocMeta.setdocmeta!(
     RandomizedSparsification,
@@ -13,6 +13,8 @@ bib = CitationBibliography(
     # style=:authoryear
 )
 
+links = InterLinks("SparseArrays" => "https://sparsearrays.juliasparse.org/dev/")
+
 makedocs(;
     modules=[RandomizedSparsification],
     authors="Martin Kunz <martinkunz@email.cz> and contributors",
@@ -23,7 +25,7 @@ makedocs(;
         assets=String[],
     ),
     pages=["Home" => "index.md"],
-    plugins=[bib],
+    plugins=[bib, links],
 )
 
 deploydocs(; repo="github.com/kunzaatko/RandomizedSparsification.jl", devbranch="trunk")
