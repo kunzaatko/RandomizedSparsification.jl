@@ -46,7 +46,7 @@ RandomizedSparsification.ρ_s
 ```@docs
 RandomizedSparsification.FindIndices
 RandomizedSparsification._sparsify_context_data
-RandomizedSparsification._indices_groupsort
+RandomizedSparsification.FindIndices._indices_groupsort
 ```
 
 ```@raw html
